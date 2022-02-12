@@ -12,17 +12,19 @@ import {
     Typography
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {isEmpty} from "../Constants";
 
-const HomeScreen = ({getScheduleList, changeSchedule, list, loading}) => {
+const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        changeSchedule();
+        if (!isEmpty(schedule))
+            navigate('/schedule', { replace: true, state: schedule.batchId})
         getScheduleList();
     }, list)
 
     const handleItem = (item) => {
-        navigate("/schedule/", { state: item})
+        navigate(`/schedule`, { replace: true, state: item})
     }
 
     return (
@@ -57,6 +59,7 @@ const HomeScreen = ({getScheduleList, changeSchedule, list, loading}) => {
 
 const mapStateToProps = ({schedule}) => ({
     list: schedule.scheduleList,
+    schedule: schedule.schedule,
     loading: schedule.loading
 });
 

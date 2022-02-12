@@ -10,10 +10,10 @@ import ScheduleScreen from './screens/ScheduleScreen';
 
 export default function Router(props) {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/HiLCoE-CS">
             <Switch>
                 <Route path="/" exact element={<HomeScreen />} />
-                <Route path="/schedule/" element={<ScheduleScreen />} />
+                <Route path={`/schedule`} element={<ScheduleScreen />} />
             </Switch>
         </BrowserRouter>
     )

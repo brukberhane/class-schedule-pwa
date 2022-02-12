@@ -1,6 +1,7 @@
 {
   "name": "class-schedule-pwa",
   "version": "0.1.0",
+  "homepage": "https://bruk.mbandevelopers.com/HiLCoE-CS",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
