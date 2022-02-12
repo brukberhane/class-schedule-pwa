@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Class Schedule",
+  "name": "Class Schedule for HiLCoE Students",
   "icons": [
     {
       "src": "favicon.ico",

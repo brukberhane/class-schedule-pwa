@@ -1,0 +1,8 @@
+.title {
+    font-weight: bold;
+}
+
+.text {
+    align-self: flex-end;
+    font-weight: bold;
+}
