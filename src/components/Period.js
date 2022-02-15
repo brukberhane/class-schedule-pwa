@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Card, CardContent, CardHeader, Container, Divider, Typography} from '@mui/material';
+import {Box, Card, CardContent, CardHeader, Divider, Typography} from '@mui/material';
 import '../css/Period.css';
 
 const Period = ({period: {number, name, code, room, time, lecturer}}) => {

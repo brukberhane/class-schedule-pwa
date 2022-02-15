@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
 import {changeSchedule, getScheduleList} from "../actions/ScheduleActions";
 import {
     List,
@@ -9,23 +9,48 @@ import {
     ListItemText,
     AppBar,
     Toolbar,
-    Typography
+    Typography, IconButton, Snackbar, Tooltip
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {isEmpty} from "../Constants";
+import CloseIcon from "@mui/icons-material/Close";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
-const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading}) => {
+const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading, errors}) => {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (!isEmpty(schedule))
-            navigate('/schedule', { replace: true, state: schedule.batchId})
-        getScheduleList();
-    }, list)
+            navigate('/schedule', {replace: true, state: schedule.batchId})
+        else
+            getScheduleList();
+
+        if (errors)
+            setOpen(true);
+    }, [errors])
 
     const handleItem = (item) => {
-        navigate(`/schedule`, { replace: true, state: item})
+        navigate(`/schedule`, {replace: true, state: item})
     }
+
+    const handleRefresh = () => {
+        getScheduleList();
+    };
+
+    const handleCLose = (event, reason) => {
+        if (reason === 'clickaway')
+            return;
+        setOpen(false);
+    };
+
+    const action = (
+        <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCLose}>
+                <CloseIcon fontSize="small"/>
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <>
@@ -34,6 +59,11 @@ const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading}) 
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         Class Schedule for HiLCoE
                     </Typography>
+                    <Tooltip title="Refresh Schedule List">
+                        <IconButton color="inherit" onClick={handleRefresh}>
+                            <RefreshIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </Toolbar>
             </AppBar>
             <List>
@@ -53,6 +83,7 @@ const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading}) 
                             <ListItem>No Schedules</ListItem>
                 }
             </List>
+            <Snackbar open={open} autoHideDuration={6000} onClick={handleCLose} message={errors} action={action}/>
         </>
     );
 }
@@ -60,7 +91,8 @@ const HomeScreen = ({getScheduleList, changeSchedule, list, schedule, loading}) 
 const mapStateToProps = ({schedule}) => ({
     list: schedule.scheduleList,
     schedule: schedule.schedule,
-    loading: schedule.loading
+    loading: schedule.loading,
+    errors: schedule.errors
 });
 
 const styles = {

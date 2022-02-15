@@ -30,7 +30,7 @@ const getScheduleListSuccess = (dispatch, response) => {
 const getScheduleListFailed = (dispatch, error) => {
   dispatch({
       type: GET_SCHEDULE_LIST_FAILED,
-      payload: {errors: error}
+      payload: {errors: "❌ Failed to get the list of Schedules, try again later."}
   });
   console.error(`Get List Failed ❌, ${error}`);
 };
@@ -59,7 +59,7 @@ const getScheduleFailed = (dispatch, error) => {
   console.error(`Schedule ❌: ${error}`)
   dispatch({
       type: GET_SCHEDULE_FAILED,
-      payload: { errors: error }
+      payload: { errors: "❌ Failed to get the schedule, try again later."}
   });
 };
 
