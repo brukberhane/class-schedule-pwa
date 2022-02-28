@@ -3,12 +3,11 @@ import {
     BrowserRouter,
     Routes as Switch,
     Route,
-    Link
 } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ScheduleScreen from './screens/ScheduleScreen';
 
-export default function Router(props) {
+export default function Router() {
     return (
         <BrowserRouter basename="/HiLCoE-CS">
             <Switch>

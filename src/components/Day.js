@@ -1,13 +1,15 @@
-import React from "react";
-import Period from './Period';
-import {Container} from "@mui/material";
+import React, { lazy, Suspense } from "react";
+import {CircularProgress, Container} from "@mui/material";
+const Period = lazy(() => import("./Period"));
 
-const Day = ({day: {doW, periods }}) => {
+const Day = ({day: { periods }}) => {
     return (
         <Container sx={styles.container}>
+            <Suspense fallback={<CircularProgress />}>
             {periods.map((item, index) => (
                 <Period key={index} period={item} />
             ))}
+            </Suspense>
         </Container>
     )
 }

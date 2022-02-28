@@ -1,27 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {
     Container,
-    Tabs,
     Tab,
     CircularProgress,
     Box,
     AppBar,
     Toolbar,
     Typography,
-    Button,
     Alert,
     Tooltip, Snackbar, IconButton
 } from "@mui/material";
 import {TabContext, TabList, TabPanel} from "@material-ui/lab";
 import {changeSchedule, getSchedule} from "../actions/ScheduleActions";
 import {isEmpty} from "../Constants";
-import Day from "../components/Day";
 import {useLocation, useNavigate} from "react-router-dom";
 import SwipeableViews from 'react-swipeable-views';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CloseIcon from '@mui/icons-material/Close';
+const Day = lazy(() => import("../components/Day"));
 
 const ScheduleScreen = ({getSchedule, schedule, loading, changeSchedule, errors}) => {
     const [index, setIndex] = useState("0");
@@ -122,7 +120,9 @@ const ScheduleScreen = ({getSchedule, schedule, loading, changeSchedule, errors}
                                         })
                                         .map((item, idx) => (
                                             <TabPanel value={idx.toString()} key={idx} sx={{width: '100%'}}>
-                                                <Day day={item}/>
+                                                <Suspense fallback={<CircularProgress />}>
+                                                  <Day day={item}/>
+                                                </Suspense>
                                             </TabPanel>
                                         ))
                                     }

@@ -9,7 +9,6 @@ import {createStore, applyMiddleware} from "redux";
 import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
 import {blue, yellow} from "@mui/material/colors";
 import reducers from './reducers';
-import logo from './logo.svg';
 import Router from "./Router";
 
 const persistConfig = {
