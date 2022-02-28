@@ -1,19 +1,22 @@
-import React from 'react';
+import { CircularProgress } from '@mui/material';
+import React, { lazy, Suspense } from 'react';
 import {
-    BrowserRouter,
-    Routes as Switch,
-    Route,
+  BrowserRouter,
+  Routes as Switch,
+  Route,
 } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
-import ScheduleScreen from './screens/ScheduleScreen';
+const HomeScreen = lazy(() => import("./screens/HomeScreen"));
+const ScheduleScreen = lazy(() => import("./screens/ScheduleScreen"));
 
 export default function Router() {
-    return (
-        <BrowserRouter basename="/HiLCoE-CS">
-            <Switch>
-                <Route path="/" exact element={<HomeScreen />} />
-                <Route path={`/schedule`} element={<ScheduleScreen />} />
-            </Switch>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter basename="/HiLCoE-CS">
+      <Suspense fallback={<CircularProgress />}>
+        <Switch>
+          <Route path="/" exact element={<HomeScreen />} />
+          <Route path={`/schedule`} element={<ScheduleScreen />} />
+        </Switch>
+      </Suspense>
+    </BrowserRouter>
+  )
 }
